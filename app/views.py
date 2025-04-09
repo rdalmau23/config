@@ -8,6 +8,22 @@ from app.forms import LoginForm
 from app.models import Usuari
 
 
+def login_sense_sessio(request):
+    error = ''
+    if request.method == 'POST':
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+        usuari = authenticate(request, username=username, password=password)
+
+        if usuari:
+            request.user = usuari  # No es fa login() → no hi ha sessió
+            return render(request, 'home_sense_sessio.html', {'user': usuari})
+        else:
+            error = 'Credencials incorrectes'
+
+    return render(request, 'login_sense_sessio.html', {'error': error, 'title': 'Login sense Sessió'})
+
+
 def login(request):
     error = None
     if request.method == "POST":

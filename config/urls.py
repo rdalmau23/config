@@ -17,9 +17,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from app.views import login
+from app.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('login/', login, name="login"),
+
+    path('login-sense-sessio/', login_sense_sessio, name='login_sense_sessio'),
 ]
